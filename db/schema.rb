@@ -10,5 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 0) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_10_094946) do
+  create_table "figurines", force: :cascade do |t|
+    t.integer "joueur_id", null: false
+    t.string "name"
+    t.integer "degats"
+    t.integer "attaque"
+    t.integer "amelioration"
+    t.integer "niveau"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["joueur_id"], name: "index_figurines_on_joueur_id"
+  end
+
+  create_table "joueurs", force: :cascade do |t|
+    t.integer "pv"
+    t.integer "mur"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "roues", force: :cascade do |t|
+    t.string "possibilites"
+    t.integer "joueur_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["joueur_id"], name: "index_roues_on_joueur_id"
+  end
+
+  add_foreign_key "figurines", "joueurs"
+  add_foreign_key "roues", "joueurs"
 end
